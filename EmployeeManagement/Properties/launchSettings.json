@@ -18,7 +18,9 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        //ANHG 2020-04-12: If we put key right here, override appsettings.json
+        "MyKey": "Value of my key from launchSettings.json"
       }
     },
     "EmployeeManagement": {
