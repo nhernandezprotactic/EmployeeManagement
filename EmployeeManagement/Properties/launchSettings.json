@@ -1,12 +1,18 @@
 ﻿{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:64176",
       "sslPort": 0
     }
   },
+  /*ANHG 2019-04-12:
+  IIS Express profile is reached when developer press f5 to execute the web page(this can be configured in both profiles) 
+  The employeeManagment one is used when we run the asp.net core application in the .net core CLI
+  Notice port number is different in each one of them
+  */
+
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
