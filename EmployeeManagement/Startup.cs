@@ -33,18 +33,31 @@ namespace EmployeeManagement
             //ANHG:  If environment is Development then...
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                #region First middleware
+                app.UseDeveloperExceptionPage(); 
+                #endregion
             }
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
+            #region Second middleware first implementation
+            //app.UseRouting();
+            //app.UseEndpoints(endpoints =>
+            //    {
+            //        endpoints.MapGet("/",
+            //        async context =>
+            //        {
+            //            await context.Response.WriteAsync("Hello world!");
+            //        });
+            //    });
+            #endregion
+            
+            app.Use(async (context, next) =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response
-                    .WriteAsync(_config["MyKey"]);
-                });
+                await context.Response.WriteAsync("Hello from 1st Middleware!");
+                await next();
+            });
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello from 2nd Middleware!");
             });
         }
     }
