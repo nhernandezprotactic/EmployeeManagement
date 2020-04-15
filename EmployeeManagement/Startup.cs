@@ -33,8 +33,13 @@ namespace EmployeeManagement
         {
             if (env.IsDevelopment())
             {
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
+                {
+                    SourceCodeLineCount =  50,
+                };
+
                 #region First middleware
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
                 #endregion
             }
             app.UseFileServer(); 
