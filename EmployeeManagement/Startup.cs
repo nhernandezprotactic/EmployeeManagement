@@ -29,7 +29,7 @@ namespace EmployeeManagement
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //ANHG:  If environment is Development then...
             if (env.IsDevelopment())
@@ -38,36 +38,25 @@ namespace EmployeeManagement
                 app.UseDeveloperExceptionPage(); 
                 #endregion
             }
-            #region Second middleware first implementation
-            //app.UseRouting();
-            //app.UseEndpoints(endpoints =>
-            //    {
-            //        endpoints.MapGet("/",
-            //        async context =>
-            //        {
-            //            await context.Response.WriteAsync("Hello world!");
-            //        });
-            //    });
+
+            // Specify foo.html as the default document
+            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            defaultFilesOptions.DefaultFileNames.Clear();
+            defaultFilesOptions.DefaultFileNames.Add("foo.html");
+
+            #region Default files middleware
+            app.UseDefaultFiles(defaultFilesOptions);
             #endregion
+
+
+            #region Static files middleware
+            app.UseStaticFiles();
+            #endregion
+
             
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW1: Incoming Request");
-                await next();
-                logger.LogInformation("MW1: Outcoming Response");
-            });
-
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW2: Incoming Request");
-                await next();
-                logger.LogInformation("MW2: Outcoming Response");
-            });
-
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("MW3: Request handled and response produced");
-                logger.LogInformation("MW3: Request handled and response produced");
+                await context.Response.WriteAsync("Hola mundo");
             });
         }
     }
