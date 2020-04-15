@@ -39,21 +39,18 @@ namespace EmployeeManagement
                 #endregion
             }
 
-            // Specify foo.html as the default document
-            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            defaultFilesOptions.DefaultFileNames.Clear();
-            defaultFilesOptions.DefaultFileNames.Add("foo.html");
+            /*
+             * UseFileServer combines the functionality of UseStaticFiles, UseDefaultFiles and UseDirectoryBrowser middleware. DirectoryBrowser middleware, enables directory browsing and allows users to see files within a specified directory. We could replace UseStaticFiles and UseDefaultFiles middlewares with UseFileServer Middleware.
+             */
 
-            #region Default files middleware
-            app.UseDefaultFiles(defaultFilesOptions);
+            // Use UseFileServer instead of UseDefaultFiles & UseStaticFiles
+            FileServerOptions fileServerOptions = new FileServerOptions();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            #region File server Middleware
+            app.UseFileServer(fileServerOptions); 
             #endregion
 
-
-            #region Static files middleware
-            app.UseStaticFiles();
-            #endregion
-
-            
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hola mundo");
